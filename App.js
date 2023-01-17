@@ -1,45 +1,28 @@
-import { Searchbar } from "react-native-paper";
-import { useState } from "react";
-import { SafeAreaView, StatusBar, View,StyleSheet,Text} from "react-native";
 import { StatusBar as ExpoStatusBar } from "expo-status-bar";
+import { RestaurantsScreen } from "./src/features/restaurants/screens/restaurants.screen";
+import { ThemeProvider } from "styled-components/native";
+import { theme } from "./src/infrastructrue";
+import {useFonts as useLato,Lato_400Regular,} from '@expo-google-fonts/lato';
+import {useFonts as useJua,Jua_400Regular,} from '@expo-google-fonts/jua';
+
 
 export default function App() {
-  const [searchQuery, setSearchQuery] = useState("");
+  let [LatoLoaded] = useLato({
+    Lato_400Regular,
+  });
+  let [JuaLoaded] = useJua({
+    Jua_400Regular,
+  });
 
-  const onChangeSearch = (query) => setSearchQuery(query);
-
+  if (!LatoLoaded||!JuaLoaded) {
+    return null
+  } 
   return (
     <>
-      <SafeAreaView style={{ flex: 1, marginTop: StatusBar.currentHeight }}>
-        <View style={styles.search}>
-        <Searchbar
-          placeholder="Search"
-          onChangeText={onChangeSearch}
-          value={searchQuery}
-        />
-        </View>
-
-        <View style={{backgroundColor:"#8fbc8f",flex:1,padding:15}}>
-        <Text style={{fontSize:20}}>List</Text>
-        </View>
-      </SafeAreaView>
-      <ExpoStatusBar style="auto"/>
+      <ThemeProvider theme={theme}>
+        <RestaurantsScreen />
+        <ExpoStatusBar style="auto" />
+      </ThemeProvider>
     </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  search: {
-    padding: 16,
-    backgroundColor: "#228b22",
-  },
-
-});
-
-
