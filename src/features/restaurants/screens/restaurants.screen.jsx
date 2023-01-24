@@ -1,60 +1,83 @@
+import {
+  StyleSheet,
+  StatusBar,
+  FlatList,
+} from "react-native";
+import * as React from "react";
 import { Searchbar } from "react-native-paper";
-import { useState } from "react";
-import { SafeAreaView, StatusBar, View, StyleSheet, Text } from "react-native";
 import { RestaurantInfoCard } from "../components/restaurant-info-card.component";
 import styled from "styled-components/native";
-
-const SafeArea = styled.SafeAreaView`
-  marginTop: ${StatusBar.currentHeight}px;
-`;
+import { Spacer } from "../../../components/spacer/spacer.component";
+import { SafeArea } from "../../../components/utility/safe-area.component";
 
 const SearchContainer = styled.View`
-  padding: 16px;
-  backgroundColor: #e6e6fa;
+  background-color: ${(props) => props.theme.colors.brand.brand};
+  padding: ${(props) => props.theme.space[3]};
 `;
+const RestaurantList = styled(FlatList).attrs({
+  contentContainerStyle: {
+    padding: 16,
+  },
+})` background-color: ${(props) => props.theme.colors.brand.brand};`;
 
-const RestaurantListContainer = styled.View`
-  flex: 1px;
-  padding: 16px;
-  backgroundColor: #e6e6fa;
-`;
 
 export const RestaurantsScreen = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-
+  const [searchQuery, setSearchQuery] = React.useState("");
   const onChangeSearch = (query) => setSearchQuery(query);
+
   return (
-    <>
-      <SafeArea>
-        <SearchContainer>
-          <Searchbar
-            style={{
-              borderRadius: 30,
-              backgroundColor: "#fffff0",
-              marginTop: 15,
-            }}
-            placeholder="Search"
-            onChangeText={onChangeSearch}
-            value={searchQuery}
-            elevation={2}
-          />
-        </SearchContainer>
-      </SafeArea>
-      <RestaurantListContainer>
-        <RestaurantInfoCard />
-      </RestaurantListContainer>
-    </>
+    <SafeArea>
+      <SearchContainer>
+        <Searchbar
+          style={{ borderRadius: 25 }}
+          placeholder="Search"
+          onChangeText={onChangeSearch}
+          value={searchQuery}
+        />
+      </SearchContainer>
+      <RestaurantList
+        data={[
+          { name: 1 },
+          { name: 2 },
+          { name: 3 },
+          { name: 4 },
+          { name: 5 },
+          { name: 6 },
+          { name: 7 },
+          { name: 8 },
+          { name: 9 },
+          { name: 10 },
+          { name: 11 },
+          { name: 12 },
+          { name: 13 },
+          { name: 14 },
+        ]}
+        renderItem={() => (
+          <Spacer position="bottom" size="large">
+            <RestaurantInfoCard />
+          </Spacer>
+        )}
+        keyExtractor={(item) => item.name}
+      />
+
+    </SafeArea>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
   search: {
-    padding: 16,
-    backgroundColor: "#e6e6fa",
+    backgroundColor: "green",
+    padding: 20,
   },
   list: {
     flex: 1,
     padding: 16,
-    backgroundColor: "#e6e6fa",
+    backgroundColor: "beige",
   },
 });

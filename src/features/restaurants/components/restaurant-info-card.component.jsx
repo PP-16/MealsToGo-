@@ -1,4 +1,4 @@
-import {View, Image } from "react-native";
+import {View, Image,FlatList } from "react-native";
 import { Card } from "react-native-paper";
 import React from "react";
 import styled from "styled-components/native";
@@ -47,7 +47,7 @@ export const RestaurantInfoCard = ({ ...restaurant }) => {
             <SectionEnd>
               {isClosedTemporarily&&<Text variant="error">CLOSED TEMPORARILY</Text>}
               <Spacer position="left" size="large">
-              <Icon source={{ uri: icon }} />
+              <Icon source={{ uri: icon }}/>
             </Spacer>
             </SectionEnd>
           </Section>
