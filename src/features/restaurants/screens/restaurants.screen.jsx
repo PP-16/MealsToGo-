@@ -1,5 +1,5 @@
-import { StyleSheet, StatusBar, FlatList } from "react-native";
-import React, { useState, useContext } from "react";
+import { StyleSheet, FlatList, TouchableOpacity } from "react-native";
+import React, { useContext } from "react";
 import { RestaurantInfoCard } from "../components/restaurant-info-card.component";
 import styled from "styled-components/native";
 import { Spacer } from "../../../components/spacer/spacer.component";
@@ -7,7 +7,6 @@ import { SafeArea } from "../../../components/utility/safe-area.component";
 import { RestaurantsContext } from "../../../service/restaurants/restaurants.context";
 import { ActivityIndicator, MD2Colors } from "react-native-paper";
 import { Search } from "../components/search.component";
-
 
 const RestaurantList = styled(FlatList).attrs({
   contentContainerStyle: {
@@ -22,15 +21,13 @@ const Loading = styled(ActivityIndicator)`
 `;
 
 const LoadingContainer = styled.View`
+  z-index:999
   position: absolute;
   top: 50%;
   left: 50%;
 `;
 
-export const RestaurantsScreen = () => {
-  const [searchQuery, setSearchQuery] = React.useState("");
-  const onChangeSearch = (query) => setSearchQuery(query);
-
+export const RestaurantsScreen = ({ navigation }) => {
   const { isLoading, error, restaurants } = useContext(RestaurantsContext);
   console.log(error);
 
@@ -38,7 +35,7 @@ export const RestaurantsScreen = () => {
     <SafeArea>
       {isLoading && (
         <LoadingContainer>
-          <Loading size={50} animating={true} color={MD2Colors.red800} />
+          <Loading size={50} animating={true} color={MD2Colors.puple800} />
         </LoadingContainer>
       )}
       <Search />
@@ -46,9 +43,11 @@ export const RestaurantsScreen = () => {
         data={restaurants}
         renderItem={({ item }) => {
           return (
-            <Spacer position="bottom" size="large">
-              <RestaurantInfoCard restaurant={item} />
-            </Spacer>
+            <TouchableOpacity onPress={()=>navigation.navigate("RestaurantDetail",{restaurant:item})} >
+              <Spacer position="bottom" size="large">
+                <RestaurantInfoCard restaurant={item} />
+              </Spacer>
+            </TouchableOpacity>
           );
         }}
         keyExtractor={(item, index) => index}
