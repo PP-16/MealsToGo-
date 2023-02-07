@@ -1,5 +1,5 @@
 import { StyleSheet, FlatList, TouchableOpacity } from "react-native";
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { RestaurantInfoCard } from "../components/restaurant-info-card.component";
 import styled from "styled-components/native";
 import { Spacer } from "../../../components/spacer/spacer.component";
@@ -7,6 +7,8 @@ import { SafeArea } from "../../../components/utility/safe-area.component";
 import { RestaurantsContext } from "../../../service/restaurants/restaurants.context";
 import { ActivityIndicator, MD2Colors } from "react-native-paper";
 import { Search } from "../components/search.component";
+import { FavouritesBar } from "../../../service/favourites/favourites-bar.component";
+import { FavouritesContext } from "../../../service/favourites/favourites.context";
 
 const RestaurantList = styled(FlatList).attrs({
   contentContainerStyle: {
@@ -30,6 +32,8 @@ const LoadingContainer = styled.View`
 export const RestaurantsScreen = ({ navigation }) => {
   const { isLoading, error, restaurants } = useContext(RestaurantsContext);
   console.log(error);
+  const [isToggled, setIsToggled] = useState(false);
+  const { favourites } = useContext(FavouritesContext);
 
   return (
     <SafeArea>
@@ -38,12 +42,26 @@ export const RestaurantsScreen = ({ navigation }) => {
           <Loading size={50} animating={true} color={MD2Colors.puple800} />
         </LoadingContainer>
       )}
-      <Search />
+      <Search
+        isFavouritesToggled={isToggled}
+        onFavouritesToggle={() => setIsToggled(!isToggled)}
+      />
+      {isToggled && (
+        <FavouritesBar
+          favourites={favourites}
+          onNavigate={navigation.navigate}
+        />
+      )}
+
       <RestaurantList
         data={restaurants}
         renderItem={({ item }) => {
           return (
-            <TouchableOpacity onPress={()=>navigation.navigate("RestaurantDetail",{restaurant:item})} >
+            <TouchableOpacity
+              onPress={() =>
+                navigation.navigate("RestaurantDetail", { restaurant: item })
+              }
+            >
               <Spacer position="bottom" size="large">
                 <RestaurantInfoCard restaurant={item} />
               </Spacer>
