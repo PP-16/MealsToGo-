@@ -26,18 +26,12 @@ export default function App() {
   //#endregion
   return (
     <>
-      <ThemeProvider theme={theme}>
+     <ThemeProvider theme={theme}>
         <AuthenticationContextProvider>
-          <FavouritesContextProvider>
-            <LocationContextProvider>
-              <RestaurantsContextProvider>
-                <ExpoStatusBar style="auto" />
-                <Navigation/>
-              </RestaurantsContextProvider>
-            </LocationContextProvider>
-          </FavouritesContextProvider>
+          <Navigation />
         </AuthenticationContextProvider>
       </ThemeProvider>
+      <ExpoStatusBar style="auto" />
     </>
   );
 }

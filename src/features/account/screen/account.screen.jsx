@@ -4,30 +4,33 @@ import {
   AccountBackground,
   AccountContainer,
   AccountCover,
-  AuthButton,
+  AuthButton,Title,
 } from "../components/account.styles";
 
-export const AccountScreen = ({navigation}) => {
-  return (
-    <AccountBackground>
-      <AccountContainer>
-        <AuthButton
-          icon="email"
-          mode="contained"
-          onPress={() => navigation.navigate("Login")}
-        >
-          Login
-        </AuthButton>
-        <Spacer size="large">
+export const AccountScreen = ({ navigation }) => {
+    return (
+      <AccountBackground>
+        <AccountCover />
+        <AccountContainer>
           <AuthButton
-            icon="lock-open-outline"
+           icon="email"
             mode="contained"
-            onPress={() => navigation.navigate("Register")}
+            onPress={() => navigation.navigate("Login")}
           >
-            Register
+            Login
           </AuthButton>
-        </Spacer>
-      </AccountContainer>
-    </AccountBackground>
-  );
-};
+          <Spacer size="large">
+            <AuthButton
+              icon="lock-open-outline"
+              mode="contained"
+              onPress={() => navigation.navigate("Register")}
+            >
+              Register
+            </AuthButton>
+          </Spacer>
+        </AccountContainer>
+      </AccountBackground>
+    );
+  };
+  
+  
