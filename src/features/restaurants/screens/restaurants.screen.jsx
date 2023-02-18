@@ -9,14 +9,7 @@ import { ActivityIndicator, MD2Colors } from "react-native-paper";
 import { Search } from "../components/search.component";
 import { FavouritesBar } from "../../../service/favourites/favourites-bar.component";
 import { FavouritesContext } from "../../../service/favourites/favourites.context";
-
-const RestaurantList = styled(FlatList).attrs({
-  contentContainerStyle: {
-    padding: 16,
-  },
-})`
-  background-color: ${(props) => props.theme.colors.brand.brand};
-`;
+import { RestaurantList } from "../components/restaurant-list.styles";
 
 const Loading = styled(ActivityIndicator)`
   margin-left: -25px;

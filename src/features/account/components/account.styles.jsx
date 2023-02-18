@@ -4,7 +4,7 @@ import { colors } from "../../../infrastructrue/colors";
 import { Text } from "../../../components/typography/text.component";
 
 export const AccountBackground = styled.ImageBackground.attrs({
-  source: require("../../../../assets/home_bg.gif"),
+  source: require("../../../../assets/home_bg.png"),
 })`
   flex: 1;
   align-items: center;
@@ -19,7 +19,7 @@ export const AccountCover = styled.View`
   background-color: rgba(255, 255, 255, 0.3);
 `;
 export const AccountContainer = styled.View`
-  margin-top: ${(props) => props.theme.space[7]};
+  margin-top: ${(props) => props.theme.space[3]};
   padding: ${(props) => props.theme.space[4]};
   background-color: rgba(255, 255, 255, 0.7);
   borderRadius: 30;
@@ -52,4 +52,11 @@ export const ErrorContainer = styled.View`
   
 `;
 
+export const AnimationWrapper = styled.View`
+  width: 100%;
+  height: 40%;
+  position: absolute;
+  top: 30px;
+  padding: ${(props) => props.theme.space[2]};
+`;
 
